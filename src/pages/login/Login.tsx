@@ -3,6 +3,8 @@ import img1 from "../../assets/login.svg";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { FcGoogle } from "react-icons/fc";
+import { useSignInMutation } from "../../redux/api/user-api";
+import { Link, useNavigate } from "react-router-dom";
 type FieldType = {
   email?: string;
   username?: string;
@@ -10,14 +12,17 @@ type FieldType = {
   remember?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const SingUp = () => {
+  const navigete = useNavigate();
+  const [sigInRequest, {}] = useSignInMutation();
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    sigInRequest(values);
+    navigete("/");
+    console.log(values);
+  };
   return (
     <div className="grid grid-cols-2 w-full bg-[#000]">
       <div className="container mx-auto pt-[180px]">
@@ -38,16 +43,16 @@ const SingUp = () => {
             layout="vertical"
             labelCol={{ span: 8, color: "white" }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600, width: 530, color: "white" }}
+            style={{ maxWidth: 600, width: 530, color: "#fff" }}
             initialValues={{ remember: false }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Form.Item<FieldType>
-              label="Email"
+              label="Username"
               className=" text-white "
-              name="email"
+              name="username"
               rules={[{ required: true, message: "Please input your email!" }]}
             >
               <Input />
@@ -78,7 +83,9 @@ const SingUp = () => {
           </Button>
           <div className="flex items-center justify-center mt-2">
             <p className="text-[#EFEFEF] text-[14px]">Don’t have an account?</p>
-            <p className="text-[#877EFF] text-[15px]">SingUp</p>
+            <Link to={"/singUp"}>
+              <p className="text-[#877EFF] text-[15px]">SingUp</p>
+            </Link>
           </div>
         </div>
       </div>

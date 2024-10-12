@@ -2,7 +2,10 @@ import img from "../../assets/sinp.png";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterUserMutation } from "../../redux/api/user-api";
+import { useEffect } from "react";
+
 type FieldType = {
   full_name?: string;
   email?: string;
@@ -11,14 +14,24 @@ type FieldType = {
   remember?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const SingUp = () => {
+  const navigete = useNavigate();
+  const [signUpRequest, { data, isSuccess }] = useRegisterUserMutation();
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    signUpRequest(values);
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      navigete(`/login`);
+      console.log(data);
+      localStorage.setItem("token", data.accessToken);
+    }
+  }, [isSuccess]);
+
   return (
     <div className="grid grid-cols-2 w-full bg-[#000]">
       <div className="container mx-auto">

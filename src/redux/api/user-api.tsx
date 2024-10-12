@@ -1,35 +1,32 @@
-import { api } from './index'
+import { api } from "./index";
 
 export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query({
-      query: (params) => ({ 
-        url: '/users', 
-        params 
+      query: (params) => ({
+        url: "/users",
+        params,
       }),
-      providesTags:["User"]
+      providesTags: ["User"],
     }),
     signIn: build.mutation({
-      query: (body)=> ({
-        url: "/auth/sign-in",
+      query: (body) => ({
+        url: "/api/auth/login",
         method: "POST",
-        body
+        body,
       }),
-      invalidatesTags: ["User"]
+      invalidatesTags: ["User"],
     }),
     registerUser: build.mutation({
-      query: (body)=> ({
-        url: "/auth/sign-up",
+      query: (body) => ({
+        url: "/api/auth/register",
         method: "POST",
-        body
+        body,
       }),
-      invalidatesTags: ["User"]
+      invalidatesTags: ["User"],
     }),
   }),
-})
+});
 
-export const {
-  useGetUsersQuery,
-  useRegisterUserMutation,
-  useSignInMutation
-} = userApi
+export const { useGetUsersQuery, useRegisterUserMutation, useSignInMutation } =
+  userApi;
