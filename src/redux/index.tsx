@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import authReducer from "../redux/slice/AuthSlice";
+import authReducer from "../redux/slice/AuthSlice";
 import counterSlice from "./slice/counter-slice";
 import { api } from "./api";
 
 export const store = configureStore({
   reducer: {
     counter: counterSlice,
-    // auth: authReducer,
+    auth: authReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

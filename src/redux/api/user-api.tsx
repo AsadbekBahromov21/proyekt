@@ -4,7 +4,7 @@ export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     getUsers: build.query({
       query: (params) => ({
-        url: "/users",
+        url: "/api/user/all",
         params,
       }),
       providesTags: ["User"],
@@ -25,8 +25,33 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    onFollow: build.mutation({
+      query: ({ username }) => ({
+        url: `/api/user/unfollow/${username}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    follow: build.mutation({
+      query: ({ username }) => ({
+        url: `/api/user/follow/${username}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["User"],
+    }),
+    getProfil: build.query({
+      query: () => ({
+        url: "/api/user/profile",
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useRegisterUserMutation, useSignInMutation } =
-  userApi;
+export const {
+  useGetUsersQuery,
+  useRegisterUserMutation,
+  useSignInMutation,
+  useFollowMutation,
+  useOnFollowMutation,
+  useGetProfilQuery,
+} = userApi;

@@ -3,25 +3,17 @@ import { useRoutes } from "react-router-dom";
 import { SuspenseComponent as Suspense } from "../utils";
 
 const Home: LazyExoticComponent<any> = lazy(() => import("../pages/home/Home"));
-const About: LazyExoticComponent<any> = lazy(
-  () => import("../pages/about/About")
-);
-const Company: LazyExoticComponent<any> = lazy(
-  () => import("../pages/company/Company")
-);
 const SingUp: LazyExoticComponent<any> = lazy(
-  () => import("../pages/sinp-up/Sing-up")
-);
-const Detail: LazyExoticComponent<any> = lazy(
-  () => import("../pages/detail/Detail")
+  () => import("../pages/auth/sinp-up/Sing-up")
 );
 const Layout: LazyExoticComponent<any> = lazy(
   () => import("../pages/layout/Layout")
 );
 
 const Login: LazyExoticComponent<any> = lazy(
-  () => import("../pages/login/Login")
+  () => import("../pages/auth/login/Login")
 );
+const Auth: LazyExoticComponent<any> = lazy(() => import("../pages/auth/Auth"));
 const Routers = () => {
   return useRoutes([
     {
@@ -40,32 +32,6 @@ const Routers = () => {
             </Suspense>
           ),
         },
-        {
-          path: "/about",
-          element: (
-            <Suspense>
-              <About />
-            </Suspense>
-          ),
-          children: [
-            {
-              path: "company",
-              element: (
-                <Suspense>
-                  <Company />
-                </Suspense>
-              ),
-            },
-          ],
-        },
-        {
-          path: "/product/:id",
-          element: (
-            <Suspense>
-              <Detail />
-            </Suspense>
-          ),
-        },
       ],
     },
     {
@@ -77,20 +43,30 @@ const Routers = () => {
       ),
     },
     {
-      path: "/singUp",
+      path: "/auth",
       element: (
         <Suspense>
-          <SingUp />
+          <Auth />
         </Suspense>
       ),
-    },
-    {
-      path: "/login",
-      element: (
-        <Suspense>
-          <Login />
-        </Suspense>
-      ),
+      children: [
+        {
+          path: "login",
+          element: (
+            <Suspense>
+              <Login />
+            </Suspense>
+          ),
+        },
+        {
+          path: "singUp",
+          element: (
+            <Suspense>
+              <SingUp />
+            </Suspense>
+          ),
+        },
+      ],
     },
   ]);
 };
