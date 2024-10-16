@@ -43,14 +43,15 @@ const SingUp = () => {
             layout="vertical"
             labelCol={{ span: 8, color: "white" }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600, width: 530, color: "#fff" }}
+            style={{ maxWidth: 600, width: 530 }}
             initialValues={{ remember: false }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
             <Form.Item<FieldType>
-              label="Username"
+              label={<span style={{ color: "white" }}>Username</span>}
+              style={{ color: "red" }}
               className=" text-white "
               name="username"
               rules={[{ required: true, message: "Please input your email!" }]}
@@ -58,8 +59,9 @@ const SingUp = () => {
               <Input />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Password"
+              label={<span style={{ color: "white" }}>Password</span>}
               name="password"
+              className="text-white"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}

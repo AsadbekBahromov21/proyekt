@@ -55,14 +55,14 @@ const SingUp = () => {
             autoComplete="off"
           >
             <Form.Item<FieldType>
-              label="Name"
+              label={<span style={{ color: "white" }}>Name</span>}
               name="full_name"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
               <Input className="w-full" />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Username"
+              label={<span style={{ color: "white" }}>Username</span>}
               name="username"
               rules={[
                 { required: true, message: "Please input your username!" },
@@ -71,7 +71,7 @@ const SingUp = () => {
               <Input className="w-full" />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Email"
+              label={<span style={{ color: "white" }}>Email</span>}
               className=" text-white "
               name="email"
               rules={[{ required: true, message: "Please input your email!" }]}
@@ -79,7 +79,7 @@ const SingUp = () => {
               <Input />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Password"
+              label={<span style={{ color: "white" }}>Password</span>}
               name="password"
               rules={[
                 { required: true, message: "Please input your password!" },
