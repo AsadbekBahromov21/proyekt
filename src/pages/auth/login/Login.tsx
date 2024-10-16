@@ -5,6 +5,8 @@ import { FcGoogle } from "react-icons/fc";
 import { useSignInMutation } from "../../../redux/api/user-api";
 import { Link, useNavigate } from "react-router-dom";
 import { Loading } from "../../../utils";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../../redux/slice/AuthSlice";
 type FieldType = {
   email?: string;
   username?: string;
@@ -16,11 +18,17 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 const SingUp = () => {
+  const dispatch = useDispatch();
   const navigete = useNavigate();
   const [sigInRequest, {}] = useSignInMutation();
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    sigInRequest(values);
-    navigete("/");
+    sigInRequest(values)
+      .unwrap()
+      .then((res) => res)
+      .then((data) => {
+        dispatch(signIn(data.accessToken));
+        navigete("/");
+      });
     console.log(values);
   };
   return (

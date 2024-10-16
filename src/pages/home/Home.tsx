@@ -26,7 +26,11 @@ const Home = () => {
       >
         <img
           className="w-[54px] h-[54px] rounded-full"
-          src={import.meta.env.VITE_APP_BASE_URL + user.photo}
+          src={
+            user.photo.includes("http")
+              ? user.photo
+              : import.meta.env.VITE_APP_BASE_URL + user.photo
+          }
           alt=""
         />
         <div>
@@ -63,7 +67,7 @@ const Home = () => {
   );
   return (
     <>
-      <div className="bg-black w-full  flex">
+      <div className="bg-black w-full   flex">
         <Snper />
         <div className="grid grid-cols-2 w-full ">
           <div className="w-full">
