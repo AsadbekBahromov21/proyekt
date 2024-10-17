@@ -16,6 +16,7 @@ const authSlice = createSlice({
     logOut: (state) => {
       state.token = null;
       localStorage.removeItem("token");
+      window.location.pathname = "/auth/login";
     },
   },
 });

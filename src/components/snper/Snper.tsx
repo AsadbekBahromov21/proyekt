@@ -9,9 +9,12 @@ import { PiFilmReelFill } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import img from "../../assets/login.svg";
 import { useGetProfilQuery } from "../../redux/api/user-api";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../redux/slice/AuthSlice";
 
 const Snper = () => {
   const { data } = useGetProfilQuery({});
+  const dispatch = useDispatch();
   console.log(data);
 
   return (
@@ -24,13 +27,21 @@ const Snper = () => {
 
         <div key={data?._id} className="flex gap-[10px] mb-[44px]">
           <div className="w-[56px] h-[56px] rounded-full border ">
-            <img src={data?.photo} alt="" />
+            <img
+              className="w-[54px] h-[54px] rounded-full border-[3px] border-[#675CFF]"
+              src={
+                data?.photo?.includes("http")
+                  ? data?.photo
+                  : import.meta.env.VITE_APP_BASE_URL + data?.photo
+              }
+              alt=""
+            />
           </div>
           <div className="flex flex-col">
             <p className="text-[#EFEFEF] text-[18px] font-[600]">
-              {data?.username}
+              {data?.username.slice(0, 12)}
             </p>
-            <p className="text-[14px] text-[#7878A3]">{data?.email}</p>
+            <p className="text-[14px] text-[#7878A3]">{data?.email.slice(6)}</p>
           </div>
         </div>
 
@@ -60,13 +71,20 @@ const Snper = () => {
           <BsChatSquareTextFill className="text-[20px] text-[#877EFF]" />
           <p className="text-[#EFEFEF] text-[18px] font-[600]">Chats</p>
         </div>
-        <div className="flex gap-[16px] items-center mb-[123px]">
-          <MdPostAdd className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">Create Post</p>
-        </div>
+        <NavLink to={"/CreatePost"}>
+          <div className="flex gap-[16px] items-center mb-[123px]">
+            <MdPostAdd className="text-[20px] text-[#877EFF]" />
+            <p className="text-[#EFEFEF] text-[18px] font-[600]">Create Post</p>
+          </div>
+        </NavLink>
         <div className="flex gap-[16px] items-center">
           <BiLogOut className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">Logout</p>
+          <p
+            onClick={() => dispatch(logOut())}
+            className="text-[#EFEFEF] text-[18px] font-[600] cursor-pointer"
+          >
+            Logout
+          </p>
         </div>
         <div className="flex gap-[16px] items-center">
           <IoMdSettings className="text-[20px] text-[#877EFF]" />

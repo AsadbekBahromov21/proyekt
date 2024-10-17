@@ -1,3 +1,4 @@
+import Navbar from "../../components/navbar/Navbar";
 import Snper from "../../components/snper/Snper";
 import {
   useFollowMutation,
@@ -13,21 +14,16 @@ const Home = () => {
   const [followUser, { isLoading: follow }] = useFollowMutation();
   console.log(userData);
   console.log(data);
-
-  // const handleFollow = (username: string) => {
-  //   followUser(username);
-  // };
-
   const userItem: JSX.Element[] = data?.map(
     (user: User): JSX.Element => (
       <div
-        className="border w-[200px] h-[200px] rounded-[20px] flex flex-col gap-3  items-center justify-center"
+        className="border w-[200px] h-[200px] rounded-[20px] flex flex-col gap-3 bg-[#09090A] items-center justify-center"
         key={user._id}
       >
         <img
           className="w-[54px] h-[54px] rounded-full"
           src={
-            user.photo.includes("http")
+            user.photo?.includes("http")
               ? user.photo
               : import.meta.env.VITE_APP_BASE_URL + user.photo
           }
@@ -70,8 +66,8 @@ const Home = () => {
       <div className="bg-black w-full   flex">
         <Snper />
         <div className="grid grid-cols-2 w-full ">
-          <div className="w-full">
-            <h3 className="text-[#fff] ">olma</h3>
+          <div className="w-[800px] px-[53px] pt-[60px] ">
+            <Navbar />
           </div>
           <div className=" w-full pr-[24px]">
             <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">

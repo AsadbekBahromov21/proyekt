@@ -1,6 +1,7 @@
 import { lazy, LazyExoticComponent } from "react";
 import { useRoutes } from "react-router-dom";
 import { SuspenseComponent as Suspense } from "../utils";
+import CreatePost from "../pages/Create-Post/CreatePost";
 
 const Home: LazyExoticComponent<any> = lazy(() => import("../pages/home/Home"));
 const SingUp: LazyExoticComponent<any> = lazy(
@@ -29,6 +30,14 @@ const Routers = () => {
           element: (
             <Suspense>
               <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "CreatePost",
+          element: (
+            <Suspense>
+              <CreatePost />
             </Suspense>
           ),
         },
