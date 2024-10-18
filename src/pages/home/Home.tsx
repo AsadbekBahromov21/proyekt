@@ -1,5 +1,4 @@
 import Navbar from "../../components/navbar/Navbar";
-import Snper from "../../components/snper/Snper";
 import { FaComment } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import img from "../../assets/Profile-Pic-S.png";
@@ -68,10 +67,9 @@ const Home = () => {
   );
   return (
     <>
-      <div className="bg-black w-full   flex">
-        <Snper />
-        <div className="grid grid-cols-2 w-full ">
-          <div className="w-[800px] px-[53px] pt-[60px] ">
+      <div className="bg-black w-full relative flex">
+        <div className="grid grid-cols-2 w-full relative">
+          <div className="w-[800px] px-[53px] pt-[60px] relative">
             <Navbar />
 
             {getData?.posts?.map(
@@ -139,11 +137,11 @@ const Home = () => {
               )
             )}
           </div>
-          <div className=" w-full pr-[24px]">
+          <div className=" w-[450px]  right-0  pr-[24px] fixed">
             <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">
               Top Creators
             </p>
-            <div className="flex flex-wrap items-end justify-end gap-[24px] ">
+            <div className="w-full flex flex-wrap items-end justify-end gap-[24px] ">
               {userItem}
             </div>
           </div>

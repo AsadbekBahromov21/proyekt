@@ -18,7 +18,7 @@ const Snper = () => {
   console.log(data);
 
   return (
-    <div className="h-screen">
+    <div className="h-screen fixed overflow-y-auto">
       <div className="w-[270px] flex flex-col bg-[#09090A] gap-[24px] py-[47px] px-[24px] ">
         <div className="container mx-auto flex items-center  mt-[42px]">
           <img src={img} alt="" />

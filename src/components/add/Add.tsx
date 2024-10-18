@@ -43,7 +43,7 @@ const Add = () => {
     console.log("dsd");
   };
   return (
-    <div>
+    <div className="sticky top-0">
       {" "}
       <form className="flex flex-col gap-[36px]" onSubmit={handlePost}>
         <div className="flex flex-col gap-2">

@@ -5,7 +5,7 @@ const Navbar = () => {
   const { data: userData } = useGetProfilQuery({});
   const { data } = useGetUsersQuery({});
   return (
-    <div>
+    <div className="sticky">
       <div className="flex gap-3 overflow-x-auto overscroll-x-none wrapper">
         <div className=" flex flex-col gap-1 items-center">
           <div className="flex flex-col items-end">

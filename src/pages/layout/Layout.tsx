@@ -1,12 +1,14 @@
-import Header from "../../components/header/Header";
 import { Outlet } from "react-router-dom";
+import Snper from "../../components/snper/Snper";
 
 const Layout = () => {
   return (
-    <main>
-      <Header />
-      <Outlet />
-    </main>
+    <>
+      <Snper />
+      <main className="ml-[270px]">
+        <Outlet />
+      </main>
+    </>
   );
 };
 
