@@ -38,7 +38,7 @@ const Add = () => {
         navigete("/");
         alert("Uploaded successfully");
       })
-      .catch((err) => alert("fill the form"));
+      .catch(() => alert("fill the form"));
     console.log(formDataToJson);
     console.log("dsd");
   };
