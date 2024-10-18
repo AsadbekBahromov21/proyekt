@@ -137,7 +137,7 @@ const Home = () => {
               )
             )}
           </div>
-          <div className=" w-[450px]  right-0  pr-[24px] fixed">
+          <div className=" w-[550px] scroll-hide overflow-y-auto  right-0  pr-[24px] fixed h-screen">
             <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">
               Top Creators
             </p>

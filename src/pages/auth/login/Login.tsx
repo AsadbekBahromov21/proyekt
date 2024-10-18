@@ -95,7 +95,7 @@ const SingUp = () => {
           <div className="flex items-center justify-center mt-2">
             <p className="text-[#EFEFEF] text-[14px]">Don’t have an account?</p>
             <Link to={"/auth/singUp"}>
-              <p className="text-[#877EFF] text-[15px]">SingUp</p>
+              <p className="text-[#877EFF] text-[15px]">SingIn</p>
             </Link>
           </div>
         </div>
