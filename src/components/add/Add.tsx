@@ -1,36 +1,51 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import img from "../../assets/Frame.png";
 import { useUploadMutation } from "../../redux/api/file-api";
+import { useUploadPostMutation } from "../../redux/api/post-api";
+import { useNavigate } from "react-router-dom";
 const Add = () => {
+  const navigete = useNavigate();
   const [upload] = useUploadMutation();
   const [image, setImage] = useState<File[] | string>("");
-  //   const [saveImages, setSaveImages] = useState<string[]>([]);
+  const [saveImages, setSaveImages] = useState<string[]>([]);
   const handUpload = () => {
     const formData = new FormData();
-    if (Array.isArray(image)) {
-      Array.from(image).forEach((img: File) => {
-        formData.append("files", img, img.name);
+    // @ts-ignore
+    Array.from(image).forEach((img: File) => {
+      formData.append("files", img);
+    });
+    upload(formData)
+      .unwrap()
+      .then((res) => {
+        setSaveImages(res.files.map((file: { url: string }[]) => file[0].url));
+        alert("Uploaded successfully");
       });
-    } else {
-      formData.append("files", image);
-    }
-    upload(formData);
-    //   .unwrap( )
-    //       .then(res =>setSaveImages(res))
   };
-  //   const handleCreatepost = (e: FormEvent) => {
-  //     e.preventDefault();
-  //     const newPost = {
-  //       caption: caption,
-  //       content_alt: content_alt,
-  //       location: location,
-  //       content: saveImages,
-  //     };
-  //   };
+  const [uploadPost] = useUploadPostMutation();
+
+  const handlePost = (e: FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const formDataToJson = Object.fromEntries(formData.entries());
+    // @ts-ignore
+    formDataToJson.content = saveImages;
+
+    uploadPost(formDataToJson)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        navigete("/");
+        alert("Uploaded successfully");
+      })
+      .catch((err) => alert("fill the form"));
+    console.log(formDataToJson);
+    console.log("dsd");
+  };
   return (
     <div>
       {" "}
-      <form className="flex flex-col gap-[36px]" action="">
+      <form className="flex flex-col gap-[36px]" onSubmit={handlePost}>
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
             Caption
@@ -120,8 +135,13 @@ const Add = () => {
             placeholder="alt"
           />
         </div>
+        <button
+          className="w-[326px] h-[54px] bg-[#1F1F22] rounded-[10px] text-[#fff] "
+          type="submit"
+        >
+          Post
+        </button>
       </form>
-      <div></div>
     </div>
   );
 };

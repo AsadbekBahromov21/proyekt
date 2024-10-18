@@ -24,3 +24,25 @@ export interface Profil {
   fullName: string;
   followers: any;
 }
+
+export interface RootInterface {
+  _id: string;
+  owner: string;
+  content: string[];
+  content_alt: string;
+  caption: string;
+  private: boolean;
+  deleted: boolean;
+  published: boolean;
+  show_likes: boolean;
+  comments_enabled: boolean;
+  likes_count: number;
+  comments_count: number;
+  shares_count: number;
+  views_count: number;
+  reels: boolean;
+  location: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
