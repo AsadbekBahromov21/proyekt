@@ -1,28 +1,30 @@
-import { BiLogOut } from "react-icons/bi";
-import { BsChatSquareTextFill } from "react-icons/bs";
-import { FaInternetExplorer } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
-import { IoHomeOutline } from "react-icons/io5";
-import { LuSave } from "react-icons/lu";
-import { MdOutlinePeople, MdPostAdd } from "react-icons/md";
-import { PiFilmReelFill } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import img from "../../assets/login.svg";
 import { useGetProfilQuery } from "../../redux/api/user-api";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/slice/AuthSlice";
+import {
+  ChatIcon,
+  CreatePostIcon,
+  HomeIcon,
+  ImageIcon,
+  LogoutIcon,
+  PeopleIcon,
+  ReelsIcon,
+  SavedIcon,
+  SettingsIcon,
+} from "../icon";
 
 const Snper = () => {
   const { data } = useGetProfilQuery({});
   const dispatch = useDispatch();
-  console.log(data);
 
   return (
-    <div className="h-screen fixed overflow-y-auto">
-      <div className="w-[270px] flex flex-col bg-[#09090A] gap-[24px] py-[47px] px-[24px] ">
-        <div className="container mx-auto flex items-center  mt-[42px]">
+    <div className="h-screen fixed overflow-y-auto scroll-hide">
+      <div className="w-[270px] flex flex-col bg-[#09090A] gap-[10px] py-[47px] px-[24px] ">
+        <div className="container mx-auto flex items-center mb-5">
           <img src={img} alt="" />
-          <p className="text-[28px] font-[600] text-[#fff]">Snapgram</p>
+          <p className="text-[28px] font-[600] text-[#fff] ml-5">Snapgram</p>
         </div>
 
         <div key={data?._id} className="flex gap-[10px] mb-[44px]">
@@ -45,51 +47,75 @@ const Snper = () => {
           </div>
         </div>
 
-        <NavLink to={"/"}>
-          <div className="flex gap-[16px] items-center">
-            <IoHomeOutline className="text-[20px] text-[#877EFF]" />
-            <p className="text-[#EFEFEF] text-[18px] font-[600]">Home</p>
-          </div>
+        <NavLink
+          to={"/"}
+          className={
+            "text-[#877EFF] flex gap-[16px] items-center w-full p-[16px] rounded-[8px] duration-300 hover:bg-[#877EFF] hover:text-[#fff]"
+          }
+        >
+          <HomeIcon className="text-[20px] " />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">Home</p>
         </NavLink>
-        <div className="flex gap-[16px] items-center">
-          <FaInternetExplorer className="text-[20px] text-[#877EFF]" />
+        <NavLink
+          to={"/explore"}
+          className="w-full flex p-[16px] rounded-[8px] gap-[16px] items-center text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff]"
+        >
+          <ImageIcon />
           <p className="text-[#EFEFEF] text-[18px] font-[600]">Explore</p>
-        </div>
-        <div className="flex gap-[16px] items-center">
-          <MdOutlinePeople className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">People</p>
-        </div>
-        <div className="flex gap-[16px] items-center">
-          <LuSave className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">Saved</p>
-        </div>
-        <div className="flex gap-[16px] items-center">
-          <PiFilmReelFill className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">Reels</p>
-        </div>
-        <div className="flex gap-[16px] items-center">
-          <BsChatSquareTextFill className="text-[20px] text-[#877EFF]" />
-          <p className="text-[#EFEFEF] text-[18px] font-[600]">Chats</p>
-        </div>
-        <NavLink to={"/CreatePost"}>
-          <div className="flex gap-[16px] items-center mb-[123px]">
-            <MdPostAdd className="text-[20px] text-[#877EFF]" />
-            <p className="text-[#EFEFEF] text-[18px] font-[600]">Create Post</p>
-          </div>
         </NavLink>
-        <div className="flex gap-[16px] items-center">
-          <BiLogOut className="text-[20px] text-[#877EFF]" />
-          <p
-            onClick={() => dispatch(logOut())}
-            className="text-[#EFEFEF] text-[18px] font-[600] cursor-pointer"
-          >
+        <NavLink
+          to={"/alluser"}
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+        >
+          <PeopleIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">People</p>
+        </NavLink>
+        <NavLink
+          to={"/saved"}
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+        >
+          <SavedIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">Saved</p>
+        </NavLink>
+        <NavLink
+          to={"/reels"}
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+        >
+          <ReelsIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">Reels</p>
+        </NavLink>
+        <NavLink
+          to={"/chats"}
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+        >
+          <ChatIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">Chats</p>
+        </NavLink>
+        <NavLink
+          to={"/CreatePost"}
+          className={
+            "flex gap-[16px] items-center mb-[123px] w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+          }
+        >
+          <CreatePostIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600]">Create Post</p>
+        </NavLink>
+        <div
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+          onClick={() => dispatch(logOut())}
+        >
+          <LogoutIcon />
+          <p className="text-[#EFEFEF] text-[18px] font-[600] cursor-pointer">
             Logout
           </p>
         </div>
-        <div className="flex gap-[16px] items-center">
-          <IoMdSettings className="text-[20px] text-[#877EFF]" />
+        <NavLink
+          to={"/setting"}
+          className="flex gap-[16px] items-center w-full text-[#877EFF] duration-300 hover:bg-[#877EFF] hover:text-[#fff] p-[16px] rounded-[8px]"
+        >
+          <SettingsIcon />
           <p className="text-[#EFEFEF] text-[18px] font-[600]">Settings</p>
-        </div>
+        </NavLink>
       </div>
     </div>
   );

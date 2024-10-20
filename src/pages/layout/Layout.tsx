@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <>
       <Snper />
-      <main className="ml-[270px] mr-[550px] w-full">
+      <main className="pl-[270px] mr-[550px] min-w-full">
         <Outlet />
       </main>
     </>

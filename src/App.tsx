@@ -18,23 +18,22 @@ function App() {
       }
     };
 
-    window.addEventListener("storage", handleStorageChange);
+    // window.addEventListener("storage", handleStorageChange);
 
     const token = localStorage.getItem("token");
     const path = window.location.pathname;
 
     if (path === "/auth/login") {
       if (token) {
-        if (!fromRegister) {
-          navigate("/");
-        }
       }
     } else if (path === "/auth/singUp") {
       localStorage.setItem("formRegister", "true");
     } else {
-      if (!token) {
-        navigate("/auth/login");
-      }
+      setTimeout(() => {
+        if (!token) {
+          navigate("/auth/login");
+        }
+      }, 1000);
     }
 
     return () => {

@@ -29,7 +29,10 @@ const Add = () => {
     const formData = new FormData(e.currentTarget as HTMLFormElement);
     const formDataToJson = Object.fromEntries(formData.entries());
     // @ts-ignore
-    formDataToJson.content = saveImages;
+    formDataToJson.content = saveImages.map((item) => ({
+      url: item,
+      type: "IMAGE",
+    }));
 
     uploadPost(formDataToJson)
       .unwrap()
@@ -60,7 +63,10 @@ const Add = () => {
           <label className="text-[18px] font-[500] text-[#fff] " htmlFor="">
             Add Photos/Videos
           </label>
-          <div className="h-[326px]  bg-[#101012] rounded-[10px] flex flex-col gap-3 items-center justify-center ">
+          <label
+            htmlFor="file"
+            className="h-[326px] cursor-pointer bg-[#101012] rounded-[10px] flex flex-col gap-3 items-center justify-center "
+          >
             {Object.values(image).map((i, inx) => (
               <div key={inx} className="flex flex-col relative gap-2">
                 <img
@@ -76,7 +82,7 @@ const Add = () => {
                     )
                   }
                 >
-                  remo
+                  remove
                 </button>
               </div>
             ))}
@@ -93,12 +99,19 @@ const Add = () => {
               </div>
             )}
             <div className="flex items-start gap-4 ">
+              <label
+                htmlFor="file"
+                className="cursor-pointer text-[#fff] w-[166px] h-[38px] rounded-[8px] bg-[#1F1F22] flex items-center justify-center"
+              >
+                Select from computer
+              </label>
               <input
-                className="w-[166px] h-[38px] rounded-[8px] bg-[#1F1F22] text-[#fff]"
+                className=" text-[#fff] hidden"
                 type="file"
                 placeholder="Select from computer"
                 onChange={(e: any) => setImage(e.target.files)}
                 multiple
+                id="file"
                 accept="image/*"
               />
               {image.length ? (
@@ -111,18 +124,20 @@ const Add = () => {
                 </button>
               ) : null}
             </div>
-          </div>
+          </label>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
             Add Location
           </label>
-          <input
-            className="h-[54px] bg-[#101012] text-[#fff] pl-[10px] rounded-[10px] outline-none"
-            type="text"
-            name="location"
-            placeholder="location"
-          />
+          <div className="flex items-center h-[54px] bg-[#101012] text-[#fff] pl-[10px] rounded-[10px]">
+            <input
+              className=" h-[54px] bg-[#101012] text-[#fff] pl-[10px] rounded-[10px] outline-none"
+              type="text"
+              name="location"
+              placeholder="location"
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
@@ -136,10 +151,10 @@ const Add = () => {
           />
         </div>
         <button
-          className="w-[326px] h-[54px] bg-[#1F1F22] rounded-[10px] text-[#fff] "
+          className="w-[124px] ml-[0px] h-[54px] bg-[#877EFF] rounded-[10px] text-[#fff]  m-auto mb-[40px] right-0"
           type="submit"
         >
-          Post
+          Share Post
         </button>
       </form>
     </div>

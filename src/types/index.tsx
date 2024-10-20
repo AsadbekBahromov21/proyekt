@@ -27,8 +27,8 @@ export interface Profil {
 
 export interface RootInterface {
   _id: string;
-  owner: string;
-  content: string[];
+  owner: { _id: string; username: string; photo: string; fullName: string };
+  content: { url: string; type: "VIDEO" | "IMAGE" | "AUDIO" }[];
   content_alt: string;
   caption: string;
   private: boolean;

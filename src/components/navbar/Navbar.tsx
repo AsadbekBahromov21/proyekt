@@ -5,8 +5,8 @@ const Navbar = () => {
   const { data: userData } = useGetProfilQuery({});
   const { data } = useGetUsersQuery({});
   return (
-    <div className="sticky">
-      <div className="flex gap-3 overflow-x-auto overscroll-x-none wrapper">
+    <div className="">
+      <div className="flex gap-3 overflow-x-auto scroll-hide overscroll-x-none wrapper">
         <div className=" flex flex-col gap-1 items-center">
           <div className="flex flex-col items-end">
             <img
@@ -28,7 +28,10 @@ const Navbar = () => {
         </div>
         {data?.map(
           (el: User): JSX.Element => (
-            <div className=" flex flex-col w-full gap-1 items-center">
+            <div
+              key={el._id}
+              className=" flex flex-col min-w-[54px] gap-1 items-center"
+            >
               <img
                 className="w-[54px] h-[54px] rounded-full border-[3px] border-[#675CFF]"
                 src={

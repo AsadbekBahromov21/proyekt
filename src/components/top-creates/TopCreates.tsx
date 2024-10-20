@@ -3,7 +3,7 @@ import { useGetProfilQuery } from "../../redux/api/user-api";
 const TopCreates = () => {
   const { data: userData } = useGetProfilQuery({});
   return (
-    <div className=" w-full   border pr-[24px]">
+    <div className=" w-full    pr-[24px]">
       <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">
         Top Creators
       </p>
