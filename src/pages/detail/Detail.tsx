@@ -18,7 +18,7 @@ const Detail = () => {
   const { data: posts } = useGetUserPostsQuery(username);
   const [followUser] = useFollowMutation();
   const [unFollowUser] = useOnFollowMutation();
-  console.log(data);
+  console.log(data, user, posts);
 
   const isFollowed = user?.following.some((item: any) => item._id === data._id);
   return (
@@ -46,10 +46,10 @@ const Detail = () => {
                 <div className="flex items-center gap-[48px]">
                   <div className="flex flex-col gap-[6.5px]">
                     <p className="text-[#fff] text-[36px] fontr-[600]">
-                      {data.fullName}
+                      {data?.fullName}
                     </p>
                     <p className="text-[#7878A3] text-[18px]">
-                      {data.username}
+                      {data?.username}
                     </p>
                   </div>
                   <div className="flex items-center gap-3 mb-[22px]">
