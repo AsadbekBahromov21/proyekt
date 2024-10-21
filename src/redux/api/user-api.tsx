@@ -43,10 +43,17 @@ export const userApi = api.injectEndpoints({
       query: () => ({
         url: "/api/user/profile",
       }),
+      providesTags: ["User"],
     }),
     getFedd: build.query({
       query: () => ({
         url: "/api/user/feed",
+      }),
+      providesTags: ["User"],
+    }),
+    getUser: build.query({
+      query: (username) => ({
+        url: `/api/user/profile/${username}`,
       }),
       providesTags: ["User"],
     }),
@@ -61,4 +68,5 @@ export const {
   useOnFollowMutation,
   useGetProfilQuery,
   useGetFeddQuery,
+  useGetUserQuery,
 } = userApi;

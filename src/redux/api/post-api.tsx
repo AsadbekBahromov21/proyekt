@@ -10,7 +10,13 @@ export const postApi = api.injectEndpoints({
       }),
       invalidatesTags: [],
     }),
+    getUserPosts: build.query({
+      query: (username) => ({
+        url: `/api/post/${username}`,
+      }),
+      providesTags: ["Product", "User"],
+    }),
   }),
 });
 
-export const { useUploadPostMutation } = postApi;
+export const { useUploadPostMutation, useGetUserPostsQuery } = postApi;
