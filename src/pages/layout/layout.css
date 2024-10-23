@@ -1,0 +1,10 @@
+@media (max-width:800px) {
+    .foto {
+        display: none;
+    }
+
+    .desc {
+        width: 80px;
+    }
+
+}

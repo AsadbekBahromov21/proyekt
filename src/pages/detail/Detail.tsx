@@ -20,7 +20,9 @@ const Detail = () => {
   const [unFollowUser] = useOnFollowMutation();
   console.log(data, user, posts);
 
-  const isFollowed = user?.following.some((item: any) => item._id === data._id);
+  const isFollowed = user?.following?.some(
+    (item: any) => item._id === data?._id
+  );
   return (
     <>
       <div className="bg-black w-full h-[200vh]   flex">

@@ -6,7 +6,7 @@ const Navbar = () => {
   const { data } = useGetUsersQuery({});
   return (
     <div className="">
-      <div className="flex gap-3 overflow-x-auto scroll-hide overscroll-x-none wrapper">
+      <div className="flex gap-3 overflow-x-auto scroll-hide  ">
         <div className=" flex flex-col gap-1 items-center">
           <div className="flex flex-col items-end">
             <img

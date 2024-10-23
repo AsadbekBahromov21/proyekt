@@ -3,6 +3,11 @@ import img from "../../assets/Frame.png";
 import { useUploadMutation } from "../../redux/api/file-api";
 import { useUploadPostMutation } from "../../redux/api/post-api";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
+import { message } from "antd";
+const info = () => {
+  message.success("Uploaded successfully");
+};
 const Add = () => {
   const navigete = useNavigate();
   const [upload] = useUploadMutation();
@@ -18,7 +23,7 @@ const Add = () => {
       .unwrap()
       .then((res) => {
         setSaveImages(res.files.map((file: { url: string }[]) => file[0].url));
-        alert("Uploaded successfully");
+        info();
       });
   };
   const [uploadPost] = useUploadPostMutation();
@@ -39,7 +44,7 @@ const Add = () => {
       .then((res) => {
         console.log(res);
         navigete("/");
-        alert("Uploaded successfully");
+        message.success("Uploaded successfully");
       })
       .catch(() => alert("fill the form"));
     console.log(formDataToJson);
@@ -48,18 +53,19 @@ const Add = () => {
   return (
     <div className="sticky top-0">
       {" "}
-      <form className="flex flex-col gap-[36px]" onSubmit={handlePost}>
+      <form className="flex flex-col gap-[36px] " onSubmit={handlePost}>
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
             Caption
           </label>
           <input
-            className="h-[114px] bg-[#101012] rounded-[10px] outline-none border-none text-[#fff] pl-[10px]"
+            className="lg:h-[114px] sm:h-[84px] md:h-[104px] h-[50px] bg-[#101012] rounded-[10px] outline-none border-none text-[#fff] pl-[10px]"
             type="text"
             name="caption"
           />
         </div>
-        <div className="flex flex-col gap-3">
+
+        <div className="flex flex-col  gap-3 ">
           <label className="text-[18px] font-[500] text-[#fff] " htmlFor="">
             Add Photos/Videos
           </label>
@@ -67,26 +73,27 @@ const Add = () => {
             htmlFor="file"
             className="h-[326px] cursor-pointer bg-[#101012] rounded-[10px] flex flex-col gap-3 items-center justify-center "
           >
-            {Object.values(image).map((i, inx) => (
-              <div key={inx} className="flex flex-col relative gap-2">
-                <img
-                  className="w-[300px] h-[200px] object-contain "
-                  src={URL.createObjectURL(i)}
-                  alt=""
-                />
-                <button
-                  className="text-[#fff] absolute top-2 left-[20px]"
-                  onClick={() =>
-                    setImage((prev: any) =>
-                      [...prev].filter((_, index) => index !== inx)
-                    )
-                  }
-                >
-                  remove
-                </button>
-              </div>
-            ))}
-
+            <div className="overflow-x-auto  scroll-hide ">
+              {Object.values(image).map((i, inx) => (
+                <div key={inx} className="flex flex-col relative  gap-2">
+                  <img
+                    className="w-[300px] h-[150px] object-contain "
+                    src={URL.createObjectURL(i)}
+                    alt=""
+                  />
+                  <button
+                    className="text-[#fff] absolute top-2 left-[20px]"
+                    onClick={() =>
+                      setImage((prev: any) =>
+                        [...prev].filter((_, index) => index !== inx)
+                      )
+                    }
+                  >
+                    <AiOutlineClose className="text-[#fff]" />
+                  </button>
+                </div>
+              ))}
+            </div>
             {!image && (
               <div className="flex flex-col gap-3 items-center justify-center">
                 <img className="w-[96px] h-[77px]" src={img} alt="" />
@@ -98,7 +105,7 @@ const Add = () => {
                 </p>
               </div>
             )}
-            <div className="flex items-start gap-4 ">
+            <div className="flex items-start gap-4  mb-[20px]">
               <label
                 htmlFor="file"
                 className="cursor-pointer text-[#fff] w-[166px] h-[38px] rounded-[8px] bg-[#1F1F22] flex items-center justify-center"
@@ -126,6 +133,7 @@ const Add = () => {
             </div>
           </label>
         </div>
+
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
             Add Location
@@ -141,7 +149,7 @@ const Add = () => {
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-[18px] font-[500] text-[#fff]" htmlFor="">
-            Add Location
+            Alt
           </label>
           <input
             className="h-[54px] bg-[#101012] text-[#fff] pl-[10px] rounded-[10px] outline-none"

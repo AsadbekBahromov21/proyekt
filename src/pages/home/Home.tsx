@@ -8,7 +8,7 @@ import {
   useOnFollowMutation,
 } from "../../redux/api/user-api";
 import { User } from "../../types/index";
-
+import "../../components/top-creates/create.css";
 const Home = () => {
   const { data: userData } = useGetProfilQuery({});
 
@@ -68,20 +68,22 @@ const Home = () => {
   );
   return (
     <>
-      <div className="bg-black w-full relative flex">
-        <div className="w-full">
-          <div className="w-[800px] pt-[60px] pr-[200px] pl-[30px]">
-            <Navbar />
-            <Post />
+      <div className="grid left lg:grid-cols-[4fr_2fr] sm:grid-cols-[4fr_2fr]  md:grid-cols-1  bg-black  ">
+        <div className="bg-black max-w-[400px]  flex">
+          <div className="w-full ">
+            <div className="lg:w-[800px] md:w-[700px] sm:w-[600px]    w-full lg:pr-[200px] pr-[20px] pl-[30px]">
+              <Navbar />
+              <Post />
+            </div>
           </div>
         </div>
-      </div>
-      <div className=" w-[490px]  overflow-y-auto  right-0 top-0 pr-[24px] fixed h-screen">
-        <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">
-          Top Creators
-        </p>
-        <div className="w-full flex flex-wrap items-end justify-end gap-[10px] ">
-          {userItem}
+        <div className=" w-[460px] foto  overflow-y-auto  right-0 top-0 pr-[24px] fixed h-screen bg-black">
+          <p className="mt-[48px] text-[24px] text-[#fff] mb-[40px] font-[700] text-center">
+            Top Creators
+          </p>
+          <div className="w-full flex flex-wrap items-end justify-end gap-[10px] mb-[20px] ">
+            {userItem}
+          </div>
         </div>
       </div>
     </>

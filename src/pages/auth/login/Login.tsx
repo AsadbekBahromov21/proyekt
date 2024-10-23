@@ -1,17 +1,21 @@
 import img1 from "../../../assets/login.svg";
 import type { FormProps } from "antd";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { FcGoogle } from "react-icons/fc";
 import { useSignInMutation } from "../../../redux/api/user-api";
 import { Link, useNavigate } from "react-router-dom";
 import { Loading } from "../../../utils";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../../redux/slice/AuthSlice";
+
 type FieldType = {
   email?: string;
   username?: string;
   password?: string;
   remember?: string;
+};
+const info = () => {
+  message.success("successfully logged");
 };
 
 const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -20,25 +24,30 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
 const SingUp = () => {
   const dispatch = useDispatch();
   const navigete = useNavigate();
-  const [sigInRequest, {}] = useSignInMutation();
+  const [sigInRequest, { isError }] = useSignInMutation();
+  if (isError) {
+    message.error("error");
+  }
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     sigInRequest(values)
       .unwrap()
       .then((res) => res)
       .then((data) => {
+        info();
         dispatch(signIn(data.accessToken));
+
         navigete("/");
       });
     console.log(values);
   };
   return (
-    <div className="grid grid-cols-1 w-full bg-[#000]">
-      <div className="container mx-auto pt-[180px]">
-        <div className="flex items-center  justify-center  mb-[36px]">
+    <div className="grid grid-cols-1    bg-[#000]">
+      <div className="container mx-auto   pt-[70px]">
+        <div className="flex items-center  justify-center  lg:mb-[36px] md:mb-[26px] sm:mb-[20px] mb-[16px]">
           <img className="w-[30px] h-[30px]" src={img1} alt="" />
           <p className="text-[28px] text-[#fff]">Snapgram</p>
         </div>
-        <div className="w-[405px] h-[592px]  m-auto px-[25px]">
+        <div className="w-[405px] lg:h-[410px] md:h-[530px]  sm:h-[530px] h-[471px]   m-auto px-[25px]">
           <p className="text-[30px] text-[#fff] font-[700] text-center">
             Log in to your account
           </p>
@@ -51,7 +60,7 @@ const SingUp = () => {
             layout="vertical"
             labelCol={{ span: 8, color: "white" }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600, width: 530 }}
+            style={{ maxWidth: 600 }}
             initialValues={{ remember: false }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -60,24 +69,24 @@ const SingUp = () => {
             <Form.Item<FieldType>
               label={<span style={{ color: "white" }}>Username</span>}
               style={{ color: "red" }}
-              className=" text-white "
               name="username"
               rules={[{ required: true, message: "Please input your email!" }]}
+              className="lg:w-[530px] md:w-[400px] sm:w-[350px] w-[320px]"
             >
               <Input />
             </Form.Item>
             <Form.Item<FieldType>
               label={<span style={{ color: "white" }}>Password</span>}
               name="password"
-              className="text-white"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
+              className="lg:w-[530px] md:w-[400px] sm:w-[350px] w-[320px]"
             >
               <Input.Password className="w-full " />
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item className="lg:w-[530px] md:w-[400px] sm:w-[350px] w-[320px]">
               <Button
                 onClick={Loading}
                 className="w-full text-whit"
@@ -88,7 +97,7 @@ const SingUp = () => {
               </Button>
             </Form.Item>
           </Form>
-          <Button className="w-full text-[#1F1F22] font-[600    ]">
+          <Button className=" lg:w-[530px] md:w-[400px] sm:w-[350px] w-[320px] lg:max-w-[351px]">
             <FcGoogle className="text-[18px]" />
             Sign up with Google
           </Button>
