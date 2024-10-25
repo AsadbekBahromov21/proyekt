@@ -14,9 +14,19 @@ export const postApi = api.injectEndpoints({
       query: (username) => ({
         url: `/api/post/${username}`,
       }),
-      providesTags: ["Product", "User"],
+      providesTags: ["Product", "User", "Posts"],
+    }),
+    getProfile: build.query({
+      query: (username) => ({
+        url: `/api/profile/${username}`,
+      }),
+      providesTags: ["Product", "User", "Posts"],
     }),
   }),
 });
 
-export const { useUploadPostMutation, useGetUserPostsQuery } = postApi;
+export const {
+  useUploadPostMutation,
+  useGetUserPostsQuery,
+  useGetProfileQuery,
+} = postApi;

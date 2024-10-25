@@ -1,0 +1,11 @@
+@media (max-width:900px) {
+    .desc{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .letter{
+        overflow-x: auto;
+        
+    }
+}

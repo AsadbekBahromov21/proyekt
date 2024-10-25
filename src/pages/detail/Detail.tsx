@@ -16,6 +16,9 @@ const Detail = () => {
   const { data } = useGetUserQuery(username);
   const { data: user } = useGetProfilQuery({});
   const { data: posts } = useGetUserPostsQuery(username);
+  if (!posts) {
+    <p>yuklanmoqda</p>;
+  }
   const [followUser] = useFollowMutation();
   const [unFollowUser] = useOnFollowMutation();
   console.log(data, user, posts);
@@ -25,7 +28,7 @@ const Detail = () => {
   );
   return (
     <>
-      <div className="bg-black w-full h-[200vh]   flex">
+      <div className="bg-black w-full    flex">
         <div className=" w-full px-[53px] pt-[60px] ">
           <div className="w-full   ">
             <div className="flex gap-[30px] ">
@@ -144,17 +147,17 @@ const Detail = () => {
                   <img
                     className="rounded-[16px]"
                     src={
-                      post.content[0].type === "IMAGE"
-                        ? post.content[0].url
-                        : post.content[1].type === "IMAGE"
-                        ? post.content[1].url
-                        : post.content[2].type === "IMAGE"
-                        ? post.content[2].url
-                        : post.content[3].type === "IMAGE"
-                        ? post.content[3].url
+                      post?.content[0]?.type === "IMAGE"
+                        ? post.content[0]?.url
+                        : post.content[1]?.type === "IMAGE"
+                        ? post.content[1]?.url
+                        : post.content[2]?.type === "IMAGE"
+                        ? post.content[2]?.url
+                        : post.content[3]?.type === "IMAGE"
+                        ? post.content[3]?.url
                         : ""
                     }
-                    alt={post.title}
+                    alt={post?.title}
                   />
                 </div>
               );

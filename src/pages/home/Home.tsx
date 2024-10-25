@@ -9,6 +9,7 @@ import {
 } from "../../redux/api/user-api";
 import { User } from "../../types/index";
 import "../../components/top-creates/create.css";
+import CardSkeloton from "../../components/card-skleton/CardSkeloton";
 const Home = () => {
   const { data: userData } = useGetProfilQuery({});
 
@@ -82,7 +83,7 @@ const Home = () => {
             Top Creators
           </p>
           <div className="w-full flex flex-wrap items-end justify-end gap-[10px] mb-[20px] ">
-            {userItem}
+            {userItem ? userItem : <CardSkeloton />}
           </div>
         </div>
       </div>

@@ -7,6 +7,8 @@ import {
   useOnFollowMutation,
 } from "../../redux/api/user-api";
 import { User } from "../../types";
+import { Link } from "react-router-dom";
+import CardSkeloton from "../../components/card-skleton/CardSkeloton";
 
 const AllUser = () => {
   const { data: userData } = useGetProfilQuery({});
@@ -14,81 +16,67 @@ const AllUser = () => {
   const { data } = useGetUsersQuery({ limit });
   const [unfollow, { isLoading: unfollowing }] = useOnFollowMutation();
   const [followUser, { isLoading: follow }] = useFollowMutation();
-  console.log(userData);
-  console.log(data);
 
   const userItem: JSX.Element[] = data?.map(
     (user: User): JSX.Element => (
       <div
-        className="border-[3px] border-[#101012] w-[303px] h-[319px] rounded-[20px] flex flex-col gap-3 bg-[#09090A] items-center justify-center"
+        className="border-2 border-gray-800 w-full sm:w-[280px] md:w-[260px] lg:w-[303px] h-[340px] rounded-2xl flex flex-col gap-3 bg-gray-900 items-center justify-center p-4"
         key={user._id}
       >
-        <img
-          className="w-[90px] h-[90px] rounded-full"
-          src={
-            user.photo?.includes("http")
-              ? user.photo
-              : import.meta.env.VITE_APP_BASE_URL + user.photo
-          }
-          alt=""
-        />
-        <div>
-          <h3 className="text-[#fff] text-[24px] font-[700]">
-            {user.fullName}
-          </h3>
-          <p className="text-[#7878A3] text-[18px]">{user.username}</p>
+        <Link to={`/detel/${user?.username}`}>
+          <img
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+            src={
+              user.photo?.includes("http")
+                ? user.photo
+                : import.meta.env.VITE_APP_BASE_URL + user.photo
+            }
+            alt="Profile"
+          />
+        </Link>
+        <div className="text-center">
+          <h3 className="text-white text-xl font-bold">{user.fullName}</h3>
+          <p className="text-gray-400 text-sm">{user.username}</p>
         </div>
-        {user.followers.some((item: any) => item._id == userData?._id) ? (
+        {user.followers.some((item: any) => item._id === userData?._id) ? (
           <button
-            className="w-[110px] h-[38px] rounded-[8px] bg-lime-600  text-[#fff]"
+            className="w-28 h-10 rounded-md bg-lime-600 text-white"
             onClick={() => unfollow({ username: user.username })}
           >
-            {unfollowing && user._id == userData?._id ? (
-              <div>Loading...</div>
-            ) : (
-              "Unfollow"
-            )}
+            {unfollowing ? <div>Loading...</div> : "Unfollow"}
           </button>
         ) : (
           <button
-            className="w-[130px] h-[38px] rounded-[8px] bg-[#877EFF]  text-[#fff]"
+            className="w-28 h-10 rounded-md bg-[#877EFF] text-white"
             onClick={() => followUser({ username: user.username })}
           >
-            {follow && user._id == userData?._id ? (
-              <div>Loading...</div>
-            ) : (
-              "follow"
-            )}
+            {follow ? <div>Loading...</div> : "Follow"}
           </button>
         )}
       </div>
     )
   );
+
   return (
-    <>
-      <div className="bg-black w-full    flex">
-        <div className=" w-full ">
-          <div className="w-full   px-[53px] pt-[60px]">
-            <div className="flex gap-[10px] items-center">
-              <PeopleIcon className="text-[#fff]" />
-              <p className=" text-[30px] font-[700] text-[#fff]">
-                Create a Post
-              </p>
-            </div>
-            <div className="grid grid-cols-3 gap-[48px] mt-[40px]">
-              {userItem}
-            </div>
-            <button
-              onClick={() => setLimit((prev) => prev + 3)}
-              className="w-[20%] flex m-auto border-none py-1 bg-[#877EFF] items-center justify-center mt-[26px] mb-9 rounded-lg text-[#fff] "
-            >
-              {" "}
-              see more
-            </button>
-          </div>
+    <div className="bg-black w-full flex justify-center">
+      <div className="w-full max-w-6xl px-5 sm:px-10 py-10">
+        <div className="flex gap-3 items-center">
+          <PeopleIcon className="text-white" />
+          <p className="text-2xl font-bold text-white">Create a Post</p>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+          {userItem ? userItem : <CardSkeloton />}
+        </div>
+        {data?.length >= limit && (
+          <button
+            onClick={() => setLimit((prev) => prev + 3)}
+            className="w-32 mx-auto mt-10 py-2 bg-purple-500 text-white rounded-lg block text-center"
+          >
+            See more
+          </button>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

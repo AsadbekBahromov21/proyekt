@@ -14,6 +14,9 @@ const Layout: LazyExoticComponent<any> = lazy(
 const AllUser: LazyExoticComponent<any> = lazy(
   () => import("../pages/all-user/AllUser")
 );
+const MyProfile: LazyExoticComponent<any> = lazy(
+  () => import("../pages/my-profile/MyProfile")
+);
 const NotFound: LazyExoticComponent<any> = lazy(
   () => import("../pages/not-Found/NotFound")
 );
@@ -60,6 +63,14 @@ const Routers = () => {
           element: (
             <Suspense>
               <Detail />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/profile/:username",
+          element: (
+            <Suspense>
+              <MyProfile />
             </Suspense>
           ),
         },

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import img from "../../assets/login.svg";
 import { useGetProfilQuery } from "../../redux/api/user-api";
 import { useDispatch } from "react-redux";
@@ -31,15 +31,17 @@ const Snper = () => {
 
         <div key={data?._id} className="flex gap-[10px] mb-[44px]">
           <div className="lg:w-[56px] lg:h-[56px] sm:w-[52px] sm:h-[52px] md:w-[54px] md:h-[54px] w-[44px] h-[44px] rounded-full border ">
-            <img
-              className="lg:w-[54px] lg:h-[54px] sm:w-[50px] sm:h-[50px] md:w-[52px] md:h-[52px] w-[42px] h-[42px] rounded-full border-[3px] border-[#675CFF]"
-              src={
-                data?.photo?.includes("http")
-                  ? data?.photo
-                  : import.meta.env.VITE_APP_BASE_URL + data?.photo
-              }
-              alt=""
-            />
+            <Link to={`/profile/${data?.username}`}>
+              <img
+                className="lg:w-[54px] lg:h-[54px] sm:w-[50px] sm:h-[50px] md:w-[52px] md:h-[52px] w-[42px] h-[42px] rounded-full border-[3px] border-[#675CFF]"
+                src={
+                  data?.photo?.includes("http")
+                    ? data?.photo
+                    : import.meta.env.VITE_APP_BASE_URL + data?.photo
+                }
+                alt=""
+              />
+            </Link>
           </div>
           <div className="flex flex-col">
             <p className="text-[#EFEFEF] text-[18px] font-[600] foto">
