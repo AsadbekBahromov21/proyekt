@@ -42,6 +42,7 @@ export interface RootInterface {
   views_count: number;
   reels: boolean;
   location: string;
+  likes: string[];
   createdAt: string;
   updatedAt: string;
   __v: number;

@@ -8,14 +8,25 @@ import {
 } from "../../redux/api/user-api";
 import { User } from "../../types";
 import { Link } from "react-router-dom";
-import CardSkeloton from "../../components/card-skleton/CardSkeloton";
+import AllSkleton from "../../components/all-skleton/AllSkleton";
 
 const AllUser = () => {
   const { data: userData } = useGetProfilQuery({});
   const [limit, setLimit] = useState(9);
-  const { data } = useGetUsersQuery({ limit });
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const { data, isFetching } = useGetUsersQuery({ limit });
   const [unfollow, { isLoading: unfollowing }] = useOnFollowMutation();
   const [followUser, { isLoading: follow }] = useFollowMutation();
+
+  const handleLoadMore = () => {
+    setIsLoadingMore(true);
+    setLimit((prev) => prev + 3);
+  };
+
+  if (!isFetching && isLoadingMore) {
+    setIsLoadingMore(false);
+  }
 
   const userItem: JSX.Element[] = data?.map(
     (user: User): JSX.Element => (
@@ -36,12 +47,13 @@ const AllUser = () => {
         </Link>
         <div className="text-center">
           <h3 className="text-white text-xl font-bold">{user.fullName}</h3>
-          <p className="text-gray-400 text-sm">{user.username}</p>
+          <p className="text-gray-400 text-sm">@{user.username}</p>
         </div>
         {user.followers.some((item: any) => item._id === userData?._id) ? (
           <button
             className="w-28 h-10 rounded-md bg-lime-600 text-white"
             onClick={() => unfollow({ username: user.username })}
+            disabled={unfollowing}
           >
             {unfollowing ? <div>Loading...</div> : "Unfollow"}
           </button>
@@ -49,6 +61,7 @@ const AllUser = () => {
           <button
             className="w-28 h-10 rounded-md bg-[#877EFF] text-white"
             onClick={() => followUser({ username: user.username })}
+            disabled={follow}
           >
             {follow ? <div>Loading...</div> : "Follow"}
           </button>
@@ -65,14 +78,15 @@ const AllUser = () => {
           <p className="text-2xl font-bold text-white">Create a Post</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-          {userItem ? userItem : <CardSkeloton />}
+          {userItem ? userItem : <AllSkleton />}
         </div>
         {data?.length >= limit && (
           <button
-            onClick={() => setLimit((prev) => prev + 3)}
+            onClick={handleLoadMore}
             className="w-32 mx-auto mt-10 py-2 bg-purple-500 text-white rounded-lg block text-center"
+            disabled={isLoadingMore}
           >
-            See more
+            {isLoadingMore ? "Loading..." : "See more"}
           </button>
         )}
       </div>

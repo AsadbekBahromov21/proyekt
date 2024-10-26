@@ -19,6 +19,7 @@ const Detail = () => {
   if (!posts) {
     <p>yuklanmoqda</p>;
   }
+
   const [followUser] = useFollowMutation();
   const [unFollowUser] = useOnFollowMutation();
   console.log(data, user, posts);

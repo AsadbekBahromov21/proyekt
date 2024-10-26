@@ -18,6 +18,7 @@ const carschApi = api.injectEndpoints({
     likePost: build.mutation({
       query: ({ id }) => ({
         url: `/api/post/${id}/like`,
+        method: "POST",
       }),
       invalidatesTags: ["Posts"],
     }),

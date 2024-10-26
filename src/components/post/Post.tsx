@@ -1,15 +1,26 @@
-import { useGetFeddQuery } from "../../redux/api/user-api";
+import { useGetFeddQuery, useGetProfilQuery } from "../../redux/api/user-api";
 import { RootInterface } from "../../types";
-import { HeartIcon, SavedIcon, SendIcon, ShareIcon } from "../icon";
+import {
+  HeartFilledIcon,
+  HeartIcon,
+  SavedIcon,
+  SendIcon,
+  ShareIcon,
+} from "../icon";
 import "../../components/snper/snper.css";
 import Model from "../modale/Model";
 import PostSkeleton from "../post-skleton/PostSkeleton";
-import { useCommentPostMutation } from "../../redux/api/post";
+import {
+  useCommentPostMutation,
+  useLikePostMutation,
+} from "../../redux/api/post";
 import { FormEvent } from "react";
 const Post = () => {
   const { data: getData } = useGetFeddQuery({});
+  const { data: user } = useGetProfilQuery({});
   const [commentPost] = useCommentPostMutation();
   console.log(getData);
+  const [like] = useLikePostMutation();
 
   const handInput = (e: FormEvent<HTMLFormElement>, id: any) => {
     e.preventDefault();
@@ -81,9 +92,15 @@ const Post = () => {
               <div className="flex lg:items-center img justify-between">
                 <div className=" flex gap-[30px] items-center">
                   <div className="flex gap-2 items-center">
-                    <HeartIcon className="text-red-600" />
+                    <button onClick={() => like({ id: post._id })}>
+                      {post.likes.some((like: string) => like === user?._id) ? (
+                        <HeartFilledIcon className="text-red-600" />
+                      ) : (
+                        <HeartIcon className="text-red-600" />
+                      )}
+                    </button>
                     <p className="text-[#fff] text-[16px] font-[600]">
-                      {post.likes_count}
+                      {post.likes.length}
                     </p>
                   </div>
 
