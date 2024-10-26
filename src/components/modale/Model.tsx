@@ -80,7 +80,12 @@ const Model: React.FC<any> = ({
                   return <img key={inx} className=" " src={url.url} alt="" />;
                 } else {
                   return (
-                    <video key={inx} className="" src={url.url} controls />
+                    <video
+                      key={inx}
+                      className=" h-[300px]"
+                      src={url.url}
+                      controls
+                    />
                   );
                 }
               })}
