@@ -104,7 +104,14 @@ const Post = () => {
                     </p>
                   </div>
 
-                  <Model id={post._id} />
+                  <Model
+                    id={post._id}
+                    fullName={post.owner.fullName}
+                    date={new Date(post.createdAt).toLocaleString()}
+                    caption={post.caption}
+                    imges={post.content}
+                    owber={post.owner.photo}
+                  />
                   <div className="flex gap-2 items-center">
                     <ShareIcon className="text-[#877EFF]" />
                     <p className="text-[#fff] text-[16px] font-[600]">
@@ -132,7 +139,9 @@ const Post = () => {
                     placeholder="Write your comment..."
                     type="text"
                   />
-                  <SendIcon className="text-[#877EFF] w-[20px] h-[20px] mr-[12px]" />
+                  <button type="submit">
+                    <SendIcon className="text-[#877EFF] w-[20px] h-[20px] mr-[12px]" />
+                  </button>
                 </form>
               </div>
             </div>

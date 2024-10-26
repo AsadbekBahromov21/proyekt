@@ -3,7 +3,14 @@ import { Button, Modal } from "antd";
 import { ChatIcon } from "../icon";
 import { useGetPostCommentsQuery } from "../../redux/api/post";
 
-const Model: React.FC<any> = ({ id }) => {
+const Model: React.FC<any> = ({
+  id,
+  fullName,
+  date,
+  caption,
+  imges,
+  owber,
+}) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { data } = useGetPostCommentsQuery({ id });
@@ -66,18 +73,17 @@ const Model: React.FC<any> = ({ id }) => {
       >
         <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col h-[400px] md:flex-row gap-6 w-full max-w-5xl mx-auto">
           <div className="w-full md:w-1/2 relative">
-            <div className="carousel">
-              <img
-                className="rounded-lg w-full h-64 object-cover"
-                src="https://via.placeholder.com/500x300"
-                alt="Mountain Image"
-              />
-
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                <div className="w-3 h-3 bg-white rounded-full"></div>
-                <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-              </div>
+            <div className="carousel flex overflow-x-auto scroll-hide">
+              {imges.map((url: any, inx: any) => {
+                console.log(url);
+                if (url.type == "IMAGE") {
+                  return <img key={inx} className=" " src={url.url} alt="" />;
+                } else {
+                  return (
+                    <video key={inx} className="" src={url.url} controls />
+                  );
+                }
+              })}
             </div>
           </div>
 
@@ -86,16 +92,16 @@ const Model: React.FC<any> = ({ id }) => {
               <div className="flex items-center space-x-3">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src="https://via.placeholder.com/40"
+                  src={owber}
                   alt="User Profile"
                 />
                 <div>
-                  <p className="text-lg font-semibold">Lewis Hamilton</p>
-                  <p className="text-gray-400 text-sm">26 June at 09:32 PM</p>
+                  <p className="text-lg font-semibold">{fullName}</p>
+                  <p className="text-gray-400 text-sm">{date}</p>
                 </div>
               </div>
               <p className="mt-4">
-                It's a big world out there - explore!{" "}
+                {caption}{" "}
                 <span className="text-blue-400">#nature #mountains</span>
               </p>
             </div>

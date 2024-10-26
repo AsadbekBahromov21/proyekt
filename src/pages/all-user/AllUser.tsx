@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PeopleIcon } from "../../components/icon";
 import {
   useFollowMutation,
@@ -21,12 +21,15 @@ const AllUser = () => {
 
   const handleLoadMore = () => {
     setIsLoadingMore(true);
+    console.log("hello");
+
     setLimit((prev) => prev + 3);
   };
-
-  if (!isFetching && isLoadingMore) {
-    setIsLoadingMore(false);
-  }
+  useEffect(() => {
+    if (!isFetching) {
+      setIsLoadingMore(false);
+    }
+  }, [isFetching]);
 
   const userItem: JSX.Element[] = data?.map(
     (user: User): JSX.Element => (
@@ -80,13 +83,13 @@ const AllUser = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
           {userItem ? userItem : <AllSkleton />}
         </div>
-        {data?.length >= limit && (
+        {data?.length >= 0 && (
           <button
             onClick={handleLoadMore}
             className="w-32 mx-auto mt-10 py-2 bg-purple-500 text-white rounded-lg block text-center"
             disabled={isLoadingMore}
           >
-            {isLoadingMore ? "Loading..." : "See more"}
+            {isFetching ? "Loading..." : "See more"}
           </button>
         )}
       </div>

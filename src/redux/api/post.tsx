@@ -15,6 +15,12 @@ const carschApi = api.injectEndpoints({
       }),
       providesTags: ["Posts"],
     }),
+    getSinglePost: build.query({
+      query: ({ username, id }) => ({
+        url: `api/post/${username}/${id}`,
+        method: "GET",
+      }),
+    }),
     likePost: build.mutation({
       query: ({ id }) => ({
         url: `/api/post/${id}/like`,
